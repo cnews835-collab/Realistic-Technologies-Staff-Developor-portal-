@@ -1,102 +1,128 @@
-// USERS
+// =============================
+// USER ACCOUNTS
+// =============================
 const users = {
-    // Full Admin (CEO, COO)
-    "ceo.admin": {
-        pass: "RealTechCEO2025",
-        name: "Chief Executive Officer",
-        role: "admin"
-    },
-    "coo.admin": {
-        pass: "RealTechCOO2025",
-        name: "Chief Operating Officer",
-        role: "admin"
-    },
-
-    // Department Manager (Half Admin)
-    "dept.manager": {
-        pass: "DeptManager2025",
-        name: "Department Manager",
-        role: "halfadmin"
-    },
-
-    // Developer (Regular)
-    "developer": {
-        pass: "DevPass2025",
-        name: "Developer",
-        role: "user"
-    }
+    "CEO": { password: "admin123", role: "Chief Executive Officer" },
+    "DevA": { password: "dev123", role: "Developer" },
+    "MgrX": { password: "manager", role: "Department Manager" }
 };
 
-let currentUser = null;
-
-// STORAGE
-let announcements = JSON.parse(localStorage.getItem("announcements")) || [];
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
-// LOGIN
+// =============================
+// CHECK LOGIN
+// =============================
 function login() {
     const u = document.getElementById("username").value;
     const p = document.getElementById("password").value;
 
-    if (users[u] && users[u].pass === p) {
-        currentUser = users[u];
-
-        document.getElementById("loginPage").classList.add("hidden");
-        document.getElementById("dashboard").classList.remove("hidden");
-
-        document.getElementById("displayUser").textContent = u;
-        document.getElementById("displayRole").textContent = currentUser.name;
-
-        if (currentUser.role === "admin" || currentUser.role === "halfadmin") {
-            document.getElementById("adminPanel").classList.remove("hidden");
-        }
-
-        render();
+    if (users[u] && users[u].password === p) {
+        localStorage.setItem("loggedUser", u);
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+        loadUser();
     } else {
-        document.getElementById("error").classList.remove("hidden");
+        document.getElementById("errorMsg").style.display = "block";
     }
 }
 
+// =============================
+// LOAD UI AFTER LOGIN
+// =============================
+function loadUser() {
+    const u = localStorage.getItem("loggedUser");
+    document.getElementById("userName").innerHTML = u;
+    document.getElementById("userRole").innerHTML = users[u].role;
+
+    if (users[u].role === "Chief Executive Officer") {
+        document.getElementById("ceoControls").innerHTML = `
+            <button onclick="addTask()">+ Add Task</button>
+            <button onclick="addAnnouncement()">+ Announcement</button>
+        `;
+    }
+}
+
+// =============================
 // LOGOUT
+// =============================
 function logout() {
-    currentUser = null;
-    document.getElementById("loginPage").classList.remove("hidden");
-    document.getElementById("dashboard").classList.add("hidden");
-    document.getElementById("adminPanel").classList.add("hidden");
+    localStorage.removeItem("loggedUser");
+    location.reload();
 }
 
-// CREATE ANNOUNCEMENT
-function newAnnouncement() {
-    const msg = prompt("Enter announcement:");
-    if (!msg) return;
+// =============================
+// TASKS + STORAGE
+// =============================
+let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
 
-    announcements.push(msg);
-    localStorage.setItem("announcements", JSON.stringify(announcements));
-    render();
-}
-
-// CREATE TASK
-function newTask() {
-    const t = prompt("Enter new task:");
-    if (!t) return;
-
-    tasks.push(t);
+function saveTasks() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
-    render();
+    renderTasks();
 }
 
-// RENDER LISTS
-function render() {
-    let annBox = document.getElementById("annList");
-    let taskBox = document.getElementById("taskList");
+function renderTasks() {
+    let box = document.getElementById("tasksList");
+    if (!box) return;
 
-    annBox.innerHTML = "";
+    box.innerHTML = "";
+
+    tasks.forEach((t, i) => {
+        box.innerHTML += `
+            <div class="task">
+                ${t}
+                <button onclick="deleteTask(${i})">✖</button>
+            </div>
+        `;
+    });
+
+    document.getElementById("taskCount").innerHTML = tasks.length;
+}
+
+function deleteTask(i) {
+    tasks.splice(i, 1);
+    saveTasks();
+}
+
+function addTask() {
+    let txt = prompt("New task:");
+    if (txt) {
+        tasks.push(txt);
+        saveTasks();
+    }
+}
+
+// =============================
+// ANNOUNCEMENTS
+// =============================
+let announcements = JSON.parse(localStorage.getItem("announcements") || "[]");
+
+function addAnnouncement() {
+    let txt = prompt("Announcement:");
+    if (txt) {
+        announcements.push(txt);
+        localStorage.setItem("announcements", JSON.stringify(announcements));
+        renderAnnouncements();
+    }
+}
+
+function renderAnnouncements() {
+    const box = document.getElementById("announcementsList");
+    if (!box) return;
+    box.innerHTML = "";
+
     announcements.forEach(a => {
-        annBox.innerHTML += `<li>${a}</li>`;
-    });
-
-    taskBox.innerHTML = "";
-    tasks.forEach(t => {
-        taskBox.innerHTML += `<li>${t}</li>`;
+        box.innerHTML += `<div class="announce">${a}</div>`;
     });
 }
+
+// =============================
+// INITIAL RENDER IF LOGGED
+// =============================
+window.onload = () => {
+    if (localStorage.getItem("loggedUser")) {
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+        loadUser();
+        renderTasks();
+        renderAnnouncements();
+    }
+};
+
