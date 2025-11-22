@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Realistic Technologies Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- LOGIN PAGE -->
+    <div id="loginPage" class="center">
+        <h1>Realistic Technologies Portal</h1>
+        <div class="card">
+            <input id="username" placeholder="Username">
+            <input id="password" type="password" placeholder="Password">
+            <button onclick="login()">Login</button>
+
+            <p id="error" class="hidden">❌ Wrong username or password</p>
+        </div>
+    </div>
+
+    <!-- MAIN DASHBOARD -->
+    <div id="dashboard" class="hidden">
+
+        <!-- TOP BAR -->
+        <div class="topbar">
+            <div>
+                <b id="displayUser"></b>  
+                (<span id="displayRole"></span>)
+            </div>
+            <button class="logoutBtn" onclick="logout()">Logout</button>
+        </div>
+
+        <!-- ADMIN CONTROLS -->
+        <div id="adminPanel" class="hidden">
+            <h2>Admin Panel</h2>
+            <button onclick="newAnnouncement()">Post Announcement</button>
+            <button onclick="newTask()">Assign Task</button>
+        </div>
+
+        <!-- DASHBOARD SECTIONS -->
+        <div class="container">
+
+            <div class="section">
+                <h3>Announcements</h3>
+                <ul id="annList"></ul>
+            </div>
+
+            <div class="section">
+                <h3>Your Tasks</h3>
+                <ul id="taskList"></ul>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
