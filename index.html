@@ -1,60 +1,128 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Realistic Technologies Portal</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Realistic Technologies – Enterprise Portal</title>
+    <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
+    <div class="login-container" id="loginPage">
+        <div class="login-box">
+            <div class="login-header">
+                <div class="company-logo">🎯</div>
+                <div class="company-name">REALISTIC TECHNOLOGIES</div>
+                <div class="company-tagline">Roblox Asset Development & Custom Orders</div>
+            </div>
+            <div class="login-body">
+                <h2 class="login-title">Secure Access</h2>
+                <p class="login-subtitle">Enter your credentials to access the portal</p>
 
-    <!-- LOGIN PAGE -->
-    <div id="loginPage" class="center">
-        <h1>Realistic Technologies Portal</h1>
-        <div class="card">
-            <input id="username" placeholder="Username">
-            <input id="password" type="password" placeholder="Password">
-            <button onclick="login()">Login</button>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter username" />
+                </div>
 
-            <p id="error" class="hidden">❌ Wrong username or password</p>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter password" />
+                </div>
+
+                <button class="btn-login" onclick="login()">Sign In</button>
+                <div class="error-msg" id="errorMsg">Invalid credentials</div>
+            </div>
         </div>
     </div>
 
-    <!-- MAIN DASHBOARD -->
-    <div id="dashboard" class="hidden">
+    <!-- DASHBOARD -->
+    <div class="dashboard" id="dashboard">
 
-        <!-- TOP BAR -->
-        <div class="topbar">
-            <div>
-                <b id="displayUser"></b>  
-                (<span id="displayRole"></span>)
+        <nav class="navbar">
+            <div class="nav-brand">
+                <div class="nav-logo">🎯</div>
+                <div class="nav-title">Realistic Technologies</div>
             </div>
-            <button class="logoutBtn" onclick="logout()">Logout</button>
-        </div>
-
-        <!-- ADMIN CONTROLS -->
-        <div id="adminPanel" class="hidden">
-            <h2>Admin Panel</h2>
-            <button onclick="newAnnouncement()">Post Announcement</button>
-            <button onclick="newTask()">Assign Task</button>
-        </div>
-
-        <!-- DASHBOARD SECTIONS -->
-        <div class="container">
-
-            <div class="section">
-                <h3>Announcements</h3>
-                <ul id="annList"></ul>
+            <div class="nav-user">
+                <div class="user-info">
+                    <div class="user-name" id="userName"></div>
+                    <div class="user-role" id="userRole"></div>
+                </div>
+                <button class="btn-logout" onclick="logout()">Logout</button>
             </div>
+        </nav>
 
-            <div class="section">
-                <h3>Your Tasks</h3>
-                <ul id="taskList"></ul>
+        <div class="main-content">
+            <div class="page-header">
+                <div>
+                    <h1 class="page-title">Dashboard</h1>
+                    <p class="page-subtitle">Manage assets, orders, and operations</p>
+                </div>
+
+                <div class="ceo-controls" id="ceoControls"></div>
             </div>
 
-        </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-label">Active Orders</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎨</div>
+                    <div class="stat-value">24</div>
+                    <div class="stat-label">Assets In Progress</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value" id="taskCount">0</div>
+                    <div class="stat-label">Active Tasks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-value">18</div>
+                    <div class="stat-label">Team Members</div>
+                </div>
+            </div>
 
+            <!-- Content Sections -->
+            <div class="content-grid">
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3 class="section-title">📋 Active Tasks</h3>
+                    </div>
+                    <div class="section-body" id="tasksList"></div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3 class="section-title">💼 CEO Messages</h3>
+                    </div>
+                    <div class="section-body" id="messagesList"></div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3 class="section-title">📄 Documents</h3>
+                    </div>
+                    <div class="section-body" id="documentsList"></div>
+                </div>
+
+                <div class="section-card full-width">
+                    <div class="section-header">
+                        <h3 class="section-title">📢 Company Announcements</h3>
+                    </div>
+                    <div class="section-body" id="announcementsList"></div>
+                </div>
+
+            </div>
+
+        </div>
     </div>
 
-    <script src="app.js"></script>
+    <!-- ALL MODALS EXIST IN THE JS (JS GENERATES CONTENT) -->
+
+    <script src="scripts/app.js"></script>
 </body>
 </html>
+
