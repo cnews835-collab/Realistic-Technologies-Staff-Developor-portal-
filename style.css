@@ -1,71 +1,136 @@
 body {
-    font-family: Arial, sans-serif;
-    background: #0b1220;
-    color: white;
     margin: 0;
+    background: #0e0e11;
+    font-family: Arial, sans-serif;
+    color: white;
 }
 
-/* Center login */
-.center {
+/* LOGIN PAGE */
+.login-container {
     height: 100vh;
     display: flex;
-    flex-direction: column;
-    gap: 20px;
     align-items: center;
     justify-content: center;
 }
 
-.card {
-    background: #182034;
-    padding: 20px;
+.login-box {
+    width: 360px;
+    background: #181820;
+    padding: 24px;
     border-radius: 10px;
-    width: 260px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    box-shadow: 0 0 30px rgba(0,0,0,.4);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.company-name {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+label {
+    font-size: 12px;
+    color: #bbb;
 }
 
 input {
-    padding: 8px;
+    width: 100%;
+    padding: 9px;
+    border-radius: 5px;
     border: none;
-    border-radius: 4px;
+    outline: none;
+    margin-top: 4px;
 }
 
-button {
-    padding: 10px;
-    border: none;
-    background: #2979ff;
+.btn-login {
+    width: 100%;
+    background: #4c8bf5;
     color: white;
-    border-radius: 5px;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
     cursor: pointer;
 }
 
-button:hover {
-    background: #4c8aff;
+.error-msg {
+    font-size: 12px;
+    color: #ff4444;
+    display: none;
+    margin-top: 8px;
 }
 
-.hidden {
+/* DASHBOARD */
+.dashboard {
     display: none;
 }
 
-.topbar {
-    background: #111a2c;
-    padding: 15px;
+.navbar {
     display: flex;
     justify-content: space-between;
+    padding: 14px;
+    background: #15151c;
+    box-shadow: 0 0 20px rgba(0,0,0,.4);
 }
 
-.logoutBtn {
-    background: red;
+.nav-title {
+    font-size: 18px;
+    font-weight: bold;
 }
 
-.container {
+.btn-logout {
+    background: #ff5555;
+    padding: 7px 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.main-content {
     padding: 20px;
 }
 
-.section {
-    background: #182034;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 18px;
+/* STAT CARDS */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 14px;
+    margin-bottom: 20px;
 }
+
+.stat-card {
+    padding: 18px;
+    background: #1d1d26;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat-icon {
+    font-size: 26px;
+}
+
+.stat-value {
+    font-weight: bold;
+    font-size: 26px;
+    margin: 9px 0;
+}
+
+/* SECTION CARDS */
+.section-card {
+    background: #1d1d26;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 14px;
+}
+
