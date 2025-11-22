@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Realistic Technologies – Enterprise Portal</title>
-    <link rel="stylesheet" href="assets/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realistic Technologies - Enterprise Portal</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- LOGIN PAGE -->
     <div class="login-container" id="loginPage">
         <div class="login-box">
             <div class="login-header">
@@ -17,17 +18,17 @@
             <div class="login-body">
                 <h2 class="login-title">Secure Access</h2>
                 <p class="login-subtitle">Enter your credentials to access the portal</p>
-
+                
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" placeholder="Enter username" />
+                    <input type="text" id="username" placeholder="Enter username">
                 </div>
-
+                
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="Enter password" />
+                    <input type="password" id="password" placeholder="Enter password">
                 </div>
-
+                
                 <button class="btn-login" onclick="login()">Sign In</button>
                 <div class="error-msg" id="errorMsg">Invalid credentials</div>
             </div>
@@ -36,7 +37,6 @@
 
     <!-- DASHBOARD -->
     <div class="dashboard" id="dashboard">
-
         <nav class="navbar">
             <div class="nav-brand">
                 <div class="nav-logo">🎯</div>
@@ -52,15 +52,16 @@
         </nav>
 
         <div class="main-content">
+            <!-- Page Header -->
             <div class="page-header">
                 <div>
                     <h1 class="page-title">Dashboard</h1>
-                    <p class="page-subtitle">Manage assets, orders, and operations</p>
+                    <p class="page-subtitle">Manage assets, orders, and team operations</p>
                 </div>
-
                 <div class="ceo-controls" id="ceoControls"></div>
             </div>
 
+            <!-- Stats Grid -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-icon">📦</div>
@@ -84,9 +85,8 @@
                 </div>
             </div>
 
-            <!-- Content Sections -->
+            <!-- Content Grid -->
             <div class="content-grid">
-
                 <div class="section-card">
                     <div class="section-header">
                         <h3 class="section-title">📋 Active Tasks</h3>
@@ -108,21 +108,166 @@
                     <div class="section-body" id="documentsList"></div>
                 </div>
 
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3 class="section-title">📦 Custom Orders</h3>
+                    </div>
+                    <div class="section-body">
+                        <div class="item">
+                            <div class="item-header">
+                                <div class="item-title">Order #RT-2847</div>
+                                <span class="badge priority-medium">IN PROGRESS</span>
+                            </div>
+                            <div class="item-desc">Custom weapon pack - 10 unique models</div>
+                            <div class="item-meta">Client: GameStudio Pro • $450</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="section-card full-width">
                     <div class="section-header">
                         <h3 class="section-title">📢 Company Announcements</h3>
                     </div>
                     <div class="section-body" id="announcementsList"></div>
                 </div>
-
             </div>
-
         </div>
     </div>
 
-    <!-- ALL MODALS EXIST IN THE JS (JS GENERATES CONTENT) -->
+    <!-- MODALS -->
+    <div class="modal" id="taskModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Create New Task</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="taskTitle">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="taskDesc"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Priority</label>
+                    <select id="taskPriority">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Assigned To</label>
+                    <input type="text" id="taskAssigned">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('taskModal')">Cancel</button>
+                <button class="btn-primary" onclick="createTask()">Create</button>
+            </div>
+        </div>
+    </div>
 
-    <script src="scripts/app.js"></script>
+    <div class="modal" id="announcementModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Create Announcement</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="announcementTitle">
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea id="announcementText"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('announcementModal')">Cancel</button>
+                <button class="btn-primary" onclick="createAnnouncement()">Post</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="messageModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Send CEO Message</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea id="messageText"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('messageModal')">Cancel</button>
+                <button class="btn-primary" onclick="createMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="documentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Document</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Document Name</label>
+                    <input type="text" id="docName" placeholder="e.g., NDA Agreement, Safety Policy">
+                </div>
+                <div class="form-group">
+                    <label>Document Type</label>
+                    <select id="docType">
+                        <option value="📄">Contract</option>
+                        <option value="📋">Form</option>
+                        <option value="📘">Handbook</option>
+                        <option value="📗">Policy</option>
+                        <option value="📕">Report</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" id="docMeta" placeholder="Brief description or date">
+                </div>
+                <div class="form-group">
+                    <label>Document Content / URL</label>
+                    <textarea id="docContent" placeholder="Paste document text or URL here"></textarea>
+                </div>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" id="docRequiresSignature" style="width: auto;">
+                        Requires employee signature
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('documentModal')">Cancel</button>
+                <button class="btn-primary" onclick="createDocument()">Add Document</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="viewDocModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="viewDocTitle"></h3>
+            </div>
+            <div class="modal-body">
+                <div id="viewDocContent"></div>
+                <div id="viewDocSignatureSection"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal('viewDocModal')">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
+
 
