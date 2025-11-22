@@ -1,0 +1,71 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #0b1220;
+    color: white;
+    margin: 0;
+}
+
+/* Center login */
+.center {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    background: #182034;
+    padding: 20px;
+    border-radius: 10px;
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input {
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    background: #2979ff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #4c8aff;
+}
+
+.hidden {
+    display: none;
+}
+
+.topbar {
+    background: #111a2c;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logoutBtn {
+    background: red;
+}
+
+.container {
+    padding: 20px;
+}
+
+.section {
+    background: #182034;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+}
